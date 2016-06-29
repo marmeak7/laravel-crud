@@ -14,3 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('users/list', ['as' => 'userList', 'uses' => 'UserController@index' ] );
+Route::get('users/create','UserController@create');
+
+Route::post('users',['uses' => 'UserController@store','as' => 'saveUser' ] );
+
+Route::get('users/{id}/edit', ['as' => 'editUser', 'uses'=> 'UserController@edit' ] );
+
+Route::post('users/{id}',['uses' => 'UserController@update','as'=> 'updateUser']);
