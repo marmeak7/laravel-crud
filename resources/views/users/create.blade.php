@@ -12,7 +12,8 @@
                         @endforeach
                 </select>
             </div>
-            <div class="form-group"><label for="">Name</label><input type="text" class="form-control" name="name"></div>
+            <div class="form-group"><label for="">First Name</label><input type="text" class="form-control" name="first_name"></div>
+            <div class="form-group"><label for="">Last Name</label><input type="text" class="form-control" name="last_name"></div>
             <div class="form-group"><label for="">Email</label><input type="text" class="form-control" name="email"></div>
             <div class="form-group"><label for="">Address</label><input type="text" class="form-control" name="address"></div>
             <div class="form-group"><label for="">Phone</label><input type="text" class="form-control" name="phone"></div>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -30,8 +31,7 @@ class UserController extends Controller
     function store( Request $request ){
 
         User::create( $request->all() );
-
-        return redirect()->route('userList');
+        return redirect()->route('userList')->with('message', "<div class='alert alert-success'>Successfully Added</div>");;
     }
 
 
@@ -45,10 +45,42 @@ class UserController extends Controller
     function update( Request $request, $id ) {
 
         $user = User::find( $id );
-        $user->update( $request->only('name','email','address', 'phone') );
+        $user->update( $request->only('first_name','last_name', 'email','address', 'phone') );
 
         return redirect()->route('userList');
     }
+
+    function delete( $id ) {
+
+        $user = User::find( $id );
+        $user->delete();
+        return redirect()->route('userList')->with('message', "<div class='alert alert-success'>Successfully Deleted</div>");
+    }
+
+    function login() {
+
+        return view('users.login');
+    }
+
+
+    function postLogin( Request $request ) {
+
+        if( Auth::attempt( $request->only('email', 'password'))) {
+
+            return redirect()->intended( route('userList') );
+        }
+
+        return redirect()->back()->with('message', 'Wrong Username / Password');
+    }
+
+    function logout() {
+
+        Auth::logout();
+
+       return redirect()->route('login');
+    }
+
+
 
 
 }

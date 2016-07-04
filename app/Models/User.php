@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','role_id','phone','address'
+        'first_name', 'email', 'password','role_id','phone','address','last_name'
     ];
 
     /**
@@ -24,9 +24,22 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected $appends = ['name'];
+
 
     function role() {
 
         return $this->belongsTo( Role::class );
+    }
+
+
+    function setPasswordAttribute( $value ) {
+
+        $this->attributes['password'] = bcrypt( $value );
+    }
+
+    function getNameAttribute($value ) {
+
+        return ucwords( $this->first_name . ' ' . $this->last_name  );
     }
 }
