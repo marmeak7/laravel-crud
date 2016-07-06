@@ -28,10 +28,11 @@ class UserController extends Controller
         return view('users.create',['roles'=> $roles ]);
     }
 
-    function store( Request $request ){
+    function store( Requests\AddUserForm $request ){
 
         User::create( $request->all() );
-        return redirect()->route('userList')->with('message', "<div class='alert alert-success'>Successfully Added</div>");;
+        return redirect()->route('userList')
+            ->with('message', "<div class='alert alert-success'>Successfully Added</div>");
     }
 
 
@@ -42,45 +43,15 @@ class UserController extends Controller
         return view('users.edit',['roles'=> $roles,'user' => $user ]);
     }
 
-    function update( Request $request, $id ) {
+    function update( Requests\AddUserForm $request, $id ) {
 
         $user = User::find( $id );
-        $user->update( $request->only('first_name','last_name', 'email','address', 'phone') );
 
-        return redirect()->route('userList');
+        $user->update($request->all() );
+
+        return redirect()->route('userList')
+            ->with('message', "<div class='alert alert-success'>Successfully Updated</div>");
     }
-
-    function delete( $id ) {
-
-        $user = User::find( $id );
-        $user->delete();
-        return redirect()->route('userList')->with('message', "<div class='alert alert-success'>Successfully Deleted</div>");
-    }
-
-    function login() {
-
-        return view('users.login');
-    }
-
-
-    function postLogin( Request $request ) {
-
-        if( Auth::attempt( $request->only('email', 'password'))) {
-
-            return redirect()->intended( route('userList') );
-        }
-
-        return redirect()->back()->with('message', 'Wrong Username / Password');
-    }
-
-    function logout() {
-
-        Auth::logout();
-
-       return redirect()->route('login');
-    }
-
-
 
 
 }

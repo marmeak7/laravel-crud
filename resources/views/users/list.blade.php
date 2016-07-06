@@ -2,6 +2,7 @@
 @section('content')
     <div class="row">
 
+        {{ csrf_field() }}
         <div>
             <a href="{{ route('addUser') }}" class="btn btn-info"><i class="glyphicon glyphicon-plus-sign"></i> Add User</a>
         </div>
@@ -31,7 +32,7 @@
                 <td>
                     <a href="{{ route('editUser', $user->id) }}">Edit</a>
 
-                    <a href="{{ route('deleteUser', $user->id ) }}" class="delete-user" data-id="{{ $user->id }}">Delete</a>
+                    <a href="javascript:;" class="delete-user" data-id="{{ $user->id }}">Delete</a>
                 </td>
 
             </tr>
@@ -48,17 +49,18 @@
             $('.delete-user').click( function() {
 
                 var $this = $(this);
-                alert( $this.data('id'));
-                {{--$.ajax({--}}
-                    {{--type : 'get',--}}
-                    {{--url : 'users/'{{ $user->id }},--}}
-                    {{--data : {--}}
-                        {{--id : '{{ $user->id }}'--}}
-                    {{--},--}}
-                    {{--success: function() {--}}
-
-                    {{--}--}}
-                {{--});    --}}
+                var userId = $this.data('id');
+                $.ajax({
+                    type : 'delete',
+                    url : userId,
+                    data : {
+                        id : '{{ $user->id }}',
+                        _token : $("[name='_token']").val()
+                    },
+                    success: function() {
+                        alert("Deleted Sucessfully");
+                    }
+                });
             })
 
 

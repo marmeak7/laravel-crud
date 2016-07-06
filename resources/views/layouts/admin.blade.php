@@ -15,14 +15,6 @@
 </head>
 <body>
 <div class="container">
-
-<div>
-     @if( Auth::check() )
-       <div> You are logged in as {{ Auth::user()->name }} </div>
-        <a href="{{ route('logout') }}" class="btn btn-sm btn-info">Logout</a>
-    @endif
-</div>
-
     @yield('content')
 </div>
 </body>

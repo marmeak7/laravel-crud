@@ -31,15 +31,4 @@ class User extends Authenticatable
 
         return $this->belongsTo( Role::class );
     }
-
-
-    function setPasswordAttribute( $value ) {
-
-        $this->attributes['password'] = bcrypt( $value );
-    }
-
-    function getNameAttribute($value ) {
-
-        return ucwords( $this->first_name . ' ' . $this->last_name  );
-    }
 }
