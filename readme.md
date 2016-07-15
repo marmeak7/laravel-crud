@@ -2,11 +2,11 @@
 
 # How to clone
 
-* git clone <folder>
-* cd <folder>
+* git clone `folder`
+* cd `folder`
 * composer install
 * cp .env.example .env
-* change the config in .env to match your environment settings( database username, password and databse name )
+* change the config in .env to match your environment settings( database username, password and database name )
 * php artisan key:generate
 * php artisan migrate
 * php artisan db:seed --class=RoleSeeder
